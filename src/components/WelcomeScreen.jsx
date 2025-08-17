@@ -110,7 +110,7 @@ const WelcomeScreen = () => {
         <div className="bg-card rounded-lg p-8 mb-8 max-w-2xl mx-auto">
           <audio
             ref={audioRef}
-            src="/WelcometotheMCL.mp3"
+            src="./WelcometotheMCL.mp3"
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}
             onEnded={handleEnded}
