@@ -176,4 +176,3 @@ For technical support or questions about the MCL Self-Assessment Application, pl
 
 **Built with ❤️ for the Meditation Combat League**
 
-
