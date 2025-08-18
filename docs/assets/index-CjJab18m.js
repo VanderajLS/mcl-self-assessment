@@ -124,7 +124,7 @@ Through a short series of questions, you'll begin to see how mental training—l
 
 Take your time. Answer honestly. No judgment.`,yp=`Your pain and conflict in your life isn't coming from the world—it's coming from your mind. A mind that's untrained will react, defend, spiral, blame, and protect its fragile sense of self… even if it keeps you miserable.
 
-The good news? You can train your mind.
+The good news? You're in good company. We're all idiots. And, we can train our minds.
 
 Not by numbing it. Not by thinking harder. But by learning how to observe it clearly—moment by moment—until the habits of noise and fabrication lose their grip.
 
