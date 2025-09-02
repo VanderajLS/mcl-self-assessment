@@ -5,17 +5,10 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // 👇 This is the key bit for GitHub Pages project sites
-  base: '/mcl-self-assessment/',
+  base: '/mcl-self-assessment/',      // required for GitHub Project Pages
   plugins: [react(), tailwindcss()],
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
+    alias: { '@': path.resolve(__dirname, './src') },
   },
-  server: {
-    host: '0.0.0.0',
-    port: 3000,
-    allowedHosts: 'all',
-  },
+  server: { host: '0.0.0.0', port: 3000, allowedHosts: 'all' },
 })
