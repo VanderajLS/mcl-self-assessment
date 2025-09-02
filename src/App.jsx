@@ -18,7 +18,7 @@ function App() {
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex)
     setShowFeedback(true)
-    
+
     // Store the answer
     const newAnswers = [...userAnswers]
     newAnswers[currentQuestionIndex] = answerIndex
@@ -28,7 +28,7 @@ function App() {
   const handleNextQuestion = () => {
     setShowFeedback(false)
     setSelectedAnswer(null)
-    setCurrentQuestionIndex(prev => prev + 1)
+    setCurrentQuestionIndex((prev) => prev + 1)
   }
 
   const resetAssessment = () => {
@@ -42,17 +42,18 @@ function App() {
   const currentQuestion = questionsData[currentQuestionIndex]
 
   return (
-    <Router>
+    {/* 👇 only change vs your current file: add basename */}
+    <Router basename={import.meta.env.BASE_URL}>
       <ScrollToTop />
       <div className="min-h-screen bg-background text-foreground">
         <Routes>
           <Route path="/" element={<WelcomeScreen />} />
           <Route path="/landing" element={<LandingScreen />} />
           <Route path="/intro" element={<IntroScreen />} />
-          <Route 
-            path="/question" 
+          <Route
+            path="/question"
             element={
-              <QuestionScreen 
+              <QuestionScreen
                 question={currentQuestion}
                 questionNumber={currentQuestionIndex + 1}
                 totalQuestions={questionsData.length}
@@ -62,11 +63,11 @@ function App() {
                 onAnswerSelect={handleAnswerSelect}
                 onNextQuestion={handleNextQuestion}
               />
-            } 
+            }
           />
-          <Route 
-            path="/profile" 
-            element={<ProfileScreen onRestart={resetAssessment} />} 
+          <Route
+            path="/profile"
+            element={<ProfileScreen onRestart={resetAssessment} />}
           />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
@@ -76,4 +77,3 @@ function App() {
 }
 
 export default App
-
