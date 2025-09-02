@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+
 import WelcomeScreen from './components/WelcomeScreen'
 import LandingScreen from './components/LandingScreen'
 import IntroScreen from './components/IntroScreen'
@@ -9,7 +10,7 @@ import ScrollToTop from './components/ScrollToTop'
 import { questionsData } from './data/questions'
 import './App.css'
 
-function App() {
+export default function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [userAnswers, setUserAnswers] = useState([])
   const [showFeedback, setShowFeedback] = useState(false)
@@ -18,8 +19,6 @@ function App() {
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex)
     setShowFeedback(true)
-
-    // Store the answer
     const newAnswers = [...userAnswers]
     newAnswers[currentQuestionIndex] = answerIndex
     setUserAnswers(newAnswers)
@@ -42,7 +41,6 @@ function App() {
   const currentQuestion = questionsData[currentQuestionIndex]
 
   return (
-    {/* 👇 only change vs your current file: add basename */}
     <Router basename={import.meta.env.BASE_URL}>
       <ScrollToTop />
       <div className="min-h-screen bg-background text-foreground">
@@ -65,15 +63,10 @@ function App() {
               />
             }
           />
-          <Route
-            path="/profile"
-            element={<ProfileScreen onRestart={resetAssessment} />}
-          />
+          <Route path="/profile" element={<ProfileScreen onRestart={resetAssessment} />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </Router>
   )
 }
-
-export default App
