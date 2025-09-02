@@ -1,6 +1,6 @@
 # MCL Self-Assessment Application
 
-An interactive web-based self-assessment tool for the Meditation Combat League, featuring audio introduction, 5-question assessment, and direct calendar booking integration. Word.
+An interactive web-based self-assessment tool for the Meditation Combat League, featuring audio introduction, 5-question assessment, and direct calendar booking integration. Words.
 
 ## 🌐 Live Application
 
