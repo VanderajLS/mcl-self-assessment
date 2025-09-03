@@ -8,32 +8,35 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write   # allow committing the /docs build back to main
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      # npm is fine here; we relax peer checks so date-fns/react-day-picker don't block CI
       - name: Install deps (ignore peer conflicts)
         run: npm install --legacy-peer-deps
 
       - name: Build
         run: npm run build
 
-      - name: Publish to docs (copy + stamp)
+      - name: Publish to docs (copy + 404 fallback)
         run: |
           rm -rf docs
           mkdir -p docs
           cp -r dist/* docs/
-          # Add a stamp so there's always a change to commit
+          # GH Pages SPA fallback: serve app for unknown paths (fixes refresh 404)
+          cp docs/index.html docs/404.html
+          # add a stamp so there's always a change to commit
           date -u +"%Y-%m-%dT%H:%M:%SZ" > docs/buildstamp.txt
-          echo "Docs now contain:"
-          ls -la docs
 
       - name: Commit & push changes (if any)
         uses: stefanzweifel/git-auto-commit-action@v5
