@@ -12,8 +12,11 @@ const WelcomeScreen = () => {
   const [volume, setVolume] = useState(1)
   const [hasFinished, setHasFinished] = useState(false)
 
+  // scroll to top
+  useEffect(() => { window.scrollTo(0, 0) }, [])
+  // set browser tab title
   useEffect(() => {
-    window.scrollTo(0, 0)
+    document.title = 'Welcome to the Meditation Combat League'
   }, [])
 
   const togglePlayPause = () => {
@@ -39,11 +42,9 @@ const WelcomeScreen = () => {
   const handleTimeUpdate = () => {
     if (audioRef.current) setCurrentTime(audioRef.current.currentTime)
   }
-
   const handleLoadedMetadata = () => {
     if (audioRef.current) setDuration(audioRef.current.duration || 0)
   }
-
   const handleEnded = () => {
     setIsPlaying(false)
     setHasFinished(true)
@@ -89,14 +90,14 @@ const WelcomeScreen = () => {
         backgroundPosition: 'center',
       }}
     >
-      {/* dark overlay with inline fallback (works even if Tailwind color classes don't load) */}
+      {/* dark overlay with inline fallback */}
       <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.6)' }} />
 
       <div className="relative z-10 mcl-container text-white">
         <div className="max-w-4xl text-center mcl-fade-in">
           {/* Headline */}
           <div className="mb-10">
-            <h1 className="mcl-title text-white">What’s Really Holding You Back?</h1>
+            <h1 className="mcl-title text-white">Welcome to the Meditation Combat League</h1>
             <p className="mcl-subtitle text-white/90">
               First, listen to this audio. Then take the survey.
             </p>
@@ -122,7 +123,7 @@ const WelcomeScreen = () => {
           <div className="bg-white/10 backdrop-blur rounded-lg p-8 mb-8 max-w-2xl mx-auto border border-white/15">
             <audio
               ref={audioRef}
-              // use BASE_URL here too for robustness on project pages
+              // robust path on project pages
               src={`${import.meta.env.BASE_URL}WelcometotheMCL.mp3`}
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
