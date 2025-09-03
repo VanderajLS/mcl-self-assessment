@@ -5,14 +5,16 @@ export const questionsData = [
     question: "Why do I keep getting into the same kind of relationship drama?",
     options: [
       "Because I attract emotionally unavailable people",
-      "Because of attachment theory and childhood wounds", 
+      "Because of attachment theory and childhood wounds",
       "Because I'm trying to love people who don't know how to receive love",
       "Because I'm an idiot and my mind needs to be trained"
     ],
-    correctAnswer: 3, // Index of correct answer (D)
+    correctAnswer: 3,
     feedback: {
-      correct: "Good.\nYou're starting to see clearly. This problem isn't outside you—it's coming from the stories in your head.",
-      incorrect: "No.\nYou are 100% responsible for the conflict in your life. If you want peace, you have to train your mind and stop being an idiot."
+      correct:
+        "Good.\nYou're starting to see clearly. This problem isn't outside you—it's coming from the stories in your head.",
+      incorrect:
+        "No.\nYou are 100% responsible for the conflict in your life. If you want peace, you have to train your mind and stop being an idiot."
     }
   },
   {
@@ -27,14 +29,17 @@ export const questionsData = [
     ],
     correctAnswer: 3,
     feedback: {
-      correct: "Good.\nClarity without discipline is just fantasy. Train your mind, or your excuses will keep winning.",
-      incorrect: "No.\nYour mind is tricking you with a comforting story. You don't need more vision boards—you need training."
+      correct:
+        "Good.\nClarity without discipline is just fantasy. Train your mind, or your excuses will keep winning.",
+      incorrect:
+        "No.\nYour mind is tricking you with a comforting story. You don't need more vision boards—you need training."
     }
   },
   {
     id: 3,
     category: "Emotional Reactivity",
-    question: "Why do I keep losing it with my kids, my partner, or my coworkers?",
+    question:
+      "Why do I keep losing it with my kids, my partner, or my coworkers?",
     options: [
       "Because they're irrational and don't listen to reason",
       "Because society has normalized stress and burnout",
@@ -43,8 +48,10 @@ export const questionsData = [
     ],
     correctAnswer: 3,
     feedback: {
-      correct: "Good.\nYou're not mad because of them. You're mad because you haven't trained the thing reacting to them.",
-      incorrect: "No.\nEmotions don't cause outbursts—untrained minds do. Your triggers are in charge until your awareness is."
+      correct:
+        "Good.\nYou're not mad because of them. You're mad because you haven't trained the thing reacting to them.",
+      incorrect:
+        "No.\nEmotions don't cause outbursts—untrained minds do. Your triggers are in charge until your awareness is."
     }
   },
   {
@@ -59,8 +66,10 @@ export const questionsData = [
     ],
     correctAnswer: 3,
     feedback: {
-      correct: "Good.\nChasing control is just fear in disguise. You don't need more—you need training.",
-      incorrect: "No.\nCraving is your mind trying to solve internal fear with external success. That loop never ends—unless you break it."
+      correct:
+        "Good.\nChasing control is just fear in disguise. You don't need more—you need training.",
+      incorrect:
+        "No.\nCraving is your mind trying to solve internal fear with external success. That loop never ends—unless you break it."
     }
   },
   {
@@ -75,8 +84,10 @@ export const questionsData = [
     ],
     correctAnswer: 3,
     feedback: {
-      correct: "Good.\nThinking is useful. Spiraling isn't. You're not solving anything—you're stuck in loops your mind invented.",
-      incorrect: "No.\nOverthinking is what an untrained mind does when it's afraid of the present moment. You don't need more answers—you need training."
+      correct:
+        "Good.\nThinking is useful. Spiraling isn't. You're not solving anything—you're stuck in loops your mind invented.",
+      incorrect:
+        "No.\nOverthinking is what an untrained mind does when it's afraid of the present moment. You don't need more answers—you need training."
     }
   }
 ];
@@ -89,7 +100,7 @@ Take your time. Answer honestly. No judgment.`;
 
 export const profileText = `Your pain and conflict in your life isn't coming from the world—it's coming from your mind. A mind that's untrained will react, defend, spiral, blame, and protect its fragile sense of self… even if it keeps you miserable.
 
-The good news? You can train your mind.
+The good news? You're in good company. We're all idiots... and, we can train our minds.
 
 Not by numbing it. Not by thinking harder. But by learning how to observe it clearly—moment by moment—until the habits of noise and fabrication lose their grip.
 
@@ -98,4 +109,3 @@ That's what we do here.
 MCL is where mental toughness meets stillness.
 
 Schedule your first Meditation Combat League experience.`;
-
