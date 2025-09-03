@@ -12,12 +12,9 @@ const WelcomeScreen = () => {
   const [volume, setVolume] = useState(1)
   const [hasFinished, setHasFinished] = useState(false)
 
-  // scroll to top
+  // scroll to top & set page title
   useEffect(() => { window.scrollTo(0, 0) }, [])
-  // set browser tab title
-  useEffect(() => {
-    document.title = 'Welcome to the Meditation Combat League'
-  }, [])
+  useEffect(() => { document.title = 'Welcome to the Meditation Combat League' }, [])
 
   const togglePlayPause = () => {
     if (!audioRef.current) return
@@ -29,26 +26,19 @@ const WelcomeScreen = () => {
   const skipForward = () => {
     if (!audioRef.current) return
     audioRef.current.currentTime = Math.min(
-      audioRef.current.currentTime + 15,
+      (audioRef.current.currentTime || 0) + 15,
       audioRef.current.duration || 0
     )
   }
 
   const skipBackward = () => {
     if (!audioRef.current) return
-    audioRef.current.currentTime = Math.max(audioRef.current.currentTime - 15, 0)
+    audioRef.current.currentTime = Math.max((audioRef.current.currentTime || 0) - 15, 0)
   }
 
-  const handleTimeUpdate = () => {
-    if (audioRef.current) setCurrentTime(audioRef.current.currentTime)
-  }
-  const handleLoadedMetadata = () => {
-    if (audioRef.current) setDuration(audioRef.current.duration || 0)
-  }
-  const handleEnded = () => {
-    setIsPlaying(false)
-    setHasFinished(true)
-  }
+  const handleTimeUpdate = () => { if (audioRef.current) setCurrentTime(audioRef.current.currentTime || 0) }
+  const handleLoadedMetadata = () => { if (audioRef.current) setDuration(audioRef.current.duration || 0) }
+  const handleEnded = () => { setIsPlaying(false); setHasFinished(true) }
 
   const handleProgressClick = (e) => {
     if (!audioRef.current || duration === 0) return
@@ -72,7 +62,6 @@ const WelcomeScreen = () => {
   }
 
   const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0
-
   const goToSurvey = () => navigate('/intro')
   const bookFirstSession = () =>
     window.open(
@@ -81,20 +70,22 @@ const WelcomeScreen = () => {
     )
 
   return (
-    <div
-      className="relative min-h-screen"
-      style={{
-        // BASE_URL ensures correct path on GitHub Pages project sites
-        backgroundImage: `url(${import.meta.env.BASE_URL}landing-bg.jpg)`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      {/* dark overlay with inline fallback */}
-      <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.6)' }} />
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Background layer with brightness applied; text sits above unaffected */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-center bg-cover"
+        style={{
+          backgroundImage: `url(${import.meta.env.BASE_URL}landing-bg.jpg)`,
+          filter: 'brightness(1.18) contrast(1.04)',
+          willChange: 'transform'
+        }}
+      />
 
-      <div className="relative z-10 mcl-container text-white">
-        <div className="max-w-4xl text-center mcl-fade-in">
+      {/* Content */}
+      <div className="relative z-10 mcl-container text-white"
+           style={{ textShadow: '0 2px 12px rgba(0,0,0,0.45)' }}>
+        <div className="max-w-4xl text-center mcl-fade-in mx-auto px-4">
           {/* Headline */}
           <div className="mb-10">
             <h1 className="mcl-title text-white">Welcome to the Meditation Combat League</h1>
@@ -103,27 +94,26 @@ const WelcomeScreen = () => {
             </p>
           </div>
 
-          {/* 3 steps */}
+          {/* 3 steps (transparent—no translucent card background) */}
           <ol className="grid gap-4 md:grid-cols-3 text-left mb-10">
-            <li className="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/15">
+            <li className="rounded-xl p-4">
               <p className="font-bold mb-1">1. Listen to the audio</p>
-              <p className="text-white/80 text-sm">It takes a couple of minutes.</p>
+              <p className="text-white/90 text-sm">It takes a couple of minutes.</p>
             </li>
-            <li className="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/15">
+            <li className="rounded-xl p-4">
               <p className="font-bold mb-1">2. Take the survey</p>
-              <p className="text-white/80 text-sm">Short, just a minute.</p>
+              <p className="text-white/90 text-sm">Short, just a minute.</p>
             </li>
-            <li className="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/15">
+            <li className="rounded-xl p-4">
               <p className="font-bold mb-1">3. Schedule your first meditation experience</p>
-              <p className="text-white/80 text-sm">Pick a time that works for you.</p>
+              <p className="text-white/90 text-sm">Pick a time that works for you.</p>
             </li>
           </ol>
 
-          {/* Audio player card */}
-          <div className="bg-white/10 backdrop-blur rounded-lg p-8 mb-8 max-w-2xl mx-auto border border-white/15">
+          {/* Audio player (transparent wrapper) */}
+          <div className="p-8 mb-8 max-w-2xl mx-auto">
             <audio
               ref={audioRef}
-              // robust path on project pages
               src={`${import.meta.env.BASE_URL}WelcometotheMCL.mp3`}
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
@@ -134,7 +124,7 @@ const WelcomeScreen = () => {
             {/* Progress */}
             <div className="mb-6">
               <div
-                className="w-full h-2 bg-white/30 rounded-full cursor-pointer"
+                className="w-full h-2 bg-white/40 rounded-full cursor-pointer"
                 onClick={handleProgressClick}
               >
                 <div
@@ -142,7 +132,7 @@ const WelcomeScreen = () => {
                   style={{ width: `${progressPercentage}%` }}
                 />
               </div>
-              <div className="flex justify-between text-sm text-white/80 mt-2">
+              <div className="flex justify-between text-sm text-white/90 mt-2">
                 <span>{formatTime(currentTime)}</span>
                 <span>{formatTime(duration)}</span>
               </div>
@@ -154,7 +144,7 @@ const WelcomeScreen = () => {
                 onClick={skipBackward}
                 variant="outline"
                 size="sm"
-                className="rounded-full w-10 h-10 p-0 border-white/40 text-white/90"
+                className="rounded-full w-10 h-10 p-0 border-white/40 text-white/90 bg-transparent"
               >
                 <SkipBack className="w-4 h-4" />
               </Button>
@@ -169,7 +159,7 @@ const WelcomeScreen = () => {
                 onClick={skipForward}
                 variant="outline"
                 size="sm"
-                className="rounded-full w-10 h-10 p-0 border-white/40 text-white/90"
+                className="rounded-full w-10 h-10 p-0 border-white/40 text-white/90 bg-transparent"
               >
                 <SkipForward className="w-4 h-4" />
               </Button>
@@ -177,15 +167,13 @@ const WelcomeScreen = () => {
 
             {/* Volume */}
             <div className="flex items-center justify-center space-x-3">
-              <Volume2 className="w-4 h-4 text-white/80" />
+              <Volume2 className="w-4 h-4 text-white/90" />
               <input
                 type="range"
-                min="0"
-                max="1"
-                step="0.1"
+                min="0" max="1" step="0.1"
                 value={volume}
                 onChange={handleVolumeChange}
-                className="w-24 h-2 bg-white/30 rounded-lg appearance-none cursor-pointer"
+                className="w-24 h-2 bg-white/40 rounded-lg appearance-none cursor-pointer"
               />
             </div>
           </div>
@@ -201,14 +189,13 @@ const WelcomeScreen = () => {
                   onClick={bookFirstSession}
                   variant="outline"
                   size="lg"
-                  className="mcl-button border-2 border-white text-white"
+                  className="mcl-button border-2 border-white text-white bg-transparent"
                 >
                   Schedule your first meditation experience
                 </Button>
               </div>
             </div>
           )}
-          {/* IMPORTANT: user must finish audio; no skip button */}
         </div>
       </div>
     </div>
