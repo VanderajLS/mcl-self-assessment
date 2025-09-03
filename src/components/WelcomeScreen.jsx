@@ -6,15 +6,24 @@ import { Play, Pause, SkipBack, SkipForward, Volume2 } from 'lucide-react'
 const WelcomeScreen = () => {
   const navigate = useNavigate()
   const audioRef = useRef(null)
+  const topCtaRef = useRef(null)
+
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [volume, setVolume] = useState(1)
   const [hasFinished, setHasFinished] = useState(false)
 
-  // scroll to top & set page title
+  // Scroll to top & set page title
   useEffect(() => { window.scrollTo(0, 0) }, [])
   useEffect(() => { document.title = 'Welcome to the Meditation Combat League' }, [])
+
+  // When audio finishes, bring the CTA into view (great for mobile)
+  useEffect(() => {
+    if (hasFinished && topCtaRef.current) {
+      topCtaRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }, [hasFinished])
 
   const togglePlayPause = () => {
     if (!audioRef.current) return
@@ -71,7 +80,7 @@ const WelcomeScreen = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Background layer with brightness applied; text sits above unaffected */}
+      {/* Background layer (lightened slightly) */}
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-center bg-cover"
@@ -87,15 +96,34 @@ const WelcomeScreen = () => {
            style={{ textShadow: '0 2px 12px rgba(0,0,0,0.45)' }}>
         <div className="max-w-4xl text-center mcl-fade-in mx-auto px-4">
           {/* Headline */}
-          <div className="mb-10">
+          <div className="mb-6">
             <h1 className="mcl-title text-white">Welcome to the Meditation Combat League</h1>
             <p className="mcl-subtitle text-white/90">
               First, listen to this audio. Then take the survey.
             </p>
           </div>
 
-          {/* 3 steps (transparent—no translucent card background) */}
-          <ol className="grid gap-4 md:grid-cols-3 text-left mb-10">
+          {/* 🔓 Top CTA: appears as soon as audio finishes */}
+          {hasFinished && (
+            <div ref={topCtaRef} className="mcl-fade-in mt-2 mb-8 flex flex-col items-center gap-3">
+              <Button onClick={goToSurvey} size="lg" className="mcl-button bg-white text-black hover:bg-white/90">
+                Take the 1-minute survey
+              </Button>
+              <Button
+                onClick={bookFirstSession}
+                variant="outline"
+                size="lg"
+                className="mcl-button border-2 border-white text-white bg-transparent"
+              >
+                Schedule your first meditation experience
+              </Button>
+              {/* screen reader announcement */}
+              <span className="sr-only" aria-live="polite">Survey unlocked</span>
+            </div>
+          )}
+
+          {/* 3 steps */}
+          <ol className="grid gap-4 md:grid-cols-3 text-left mb-8">
             <li className="rounded-xl p-4">
               <p className="font-bold mb-1">1. Listen to the audio</p>
               <p className="text-white/90 text-sm">It takes a couple of minutes.</p>
@@ -110,7 +138,7 @@ const WelcomeScreen = () => {
             </li>
           </ol>
 
-          {/* Audio player (transparent wrapper) */}
+          {/* Audio player */}
           <div className="p-8 mb-8 max-w-2xl mx-auto">
             <audio
               ref={audioRef}
@@ -177,25 +205,6 @@ const WelcomeScreen = () => {
               />
             </div>
           </div>
-
-          {/* After audio finishes: show CTAs */}
-          {hasFinished && (
-            <div className="mcl-fade-in space-y-4">
-              <Button onClick={goToSurvey} size="lg" className="mcl-button bg-white text-black hover:bg-white/90">
-                Take the 1-minute survey
-              </Button>
-              <div>
-                <Button
-                  onClick={bookFirstSession}
-                  variant="outline"
-                  size="lg"
-                  className="mcl-button border-2 border-white text-white bg-transparent"
-                >
-                  Schedule your first meditation experience
-                </Button>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
